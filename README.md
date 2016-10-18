@@ -1,2 +1,2 @@
-* LinkGame Tournament Server
+# LinkGame Tournament Server
 See LICENSE.md
