@@ -4,15 +4,11 @@ $dbhost = 'localhost';
 $dbuser = '';
 $dbpass = '';
 
-function dbConnect($db='') {
+function getmysqli($db='') {
     global $dbhost, $dbuser, $dbpass;
 
-    $dbcnx = @mysql_connect($dbhost, $dbuser, $dbpass)
-        or die('The site database appears to be down.');
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-    if ($db!='' and !@mysql_select_db($db))
-        die('The site database is unavailable.');
-
-    return $dbcnx;
+    return $mysqli;
 }
 ?>

@@ -16,7 +16,7 @@
     session_start();
 
     // User has submitted login form
-    if (isset($_POST['uid']) && isset($_POST['password'])) {
+    if (isset($_POST['uid']) && isset($_POST['password']) && isset($_POST['what']) && ($_POST['what'] === 'login')) {
         // TODO: Figure out how LDAP works
         $ds = ldap_connect("ldaps://csitldap.anu.edu.au/", 389);
         if (! $ds) {
@@ -45,14 +45,15 @@
             showLogin();
     }
 
-    function showLogin($message) {
+    function showLogin($message='') {
 ?>
     <html>
         <h1>Login Required</h1>
         <?php if (isset($message)) { echo("<p>$message</p>"); } ?>
         <h3>Please enter your ANU credentials</h3>
         <p>(These will not be stored on the server.)</p>
-        <form method="post" action="/access.php">
+        <form method="post" action="/index.php">
+        <input type="hidden" name="what" value="login"/>
         <table>
             <tr>
                 <td><p>Username: </p></td>
