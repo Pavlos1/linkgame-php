@@ -1,6 +1,7 @@
 <?php
     session_name('linkgame_session_id');
-    $secure = true;
+    // TODO: change this once TLS is up & running
+    $secure = false;
     $httponly = true;
     ini_set('session-use_only_cookies', 1);
     ini_set("session.entropy_file", "/dev/urandom");
@@ -18,6 +19,15 @@
     // User has submitted login form
     if (isset($_POST['uid']) && isset($_POST['password']) && isset($_POST['what']) && ($_POST['what'] === 'login')) {
         // TODO: Figure out how LDAP works
+
+        if (($_POST['uid'] === '') || ($_POST['password'] === '')) {
+            showLogin('Username and password fields cannot be blank.');
+        }
+
+        if (!ctype_alnum($_POST['uid'])) {
+            showLogin('UID cannot have special characters');
+        } 
+        
         $ds = ldap_connect("ldaps://csitldap.anu.edu.au/", 389);
         if (! $ds) {
             showLogin('LDAP server seems to be down. Please try again later.');
@@ -26,7 +36,7 @@
         if (! $rb) {
             showLogin('Credentials incorrect.');
         }
-
+        
         // User authenticated
         $_SESSION['uid'] = $_POST['uid'];
         $_SESSION['last_access'] = time();

@@ -23,3 +23,13 @@ for i in $(ls | grep php$); do
 for i in $(ls | grep '\(groovy$\|py$\)'); do
     sudo cp $i /srv/daemons/;
     done
+
+if [ -f $dir/db.php ]; then
+    sudo chown $user $dir/db.php
+    sudo chmod 0600 $dir/db.php
+fi
+
+if [ -f /srv/daemons/db.py ]; then
+    sudo chown $user /srv/daemons/db.py
+    sudo chmod 0600 $dir/db.py
+fi
