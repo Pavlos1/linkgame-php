@@ -3,6 +3,9 @@ set -o xtrace
 
 sudo mkdir -p /srv/jars
 sudo mkdir -p /srv/daemons
+sudo mkdir -p /srv/mallory
+sudo chmod 777 /srv/mallory
+sudo rm -rf /srv/mallory/*
 
 if [ $1 == 'arch' ]; then
     # Arch Linux
