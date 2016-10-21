@@ -28,6 +28,45 @@ SOLUTIONS_MULTI = [
             ["JAAPBGVCJRDC", "JAAPBGVCJRDCDEDSFBWGBFHECIFAJDHKGOLF", "JAAPBGVCJRDCDEDSFBWGBFHECIFAJDOKFHLG", "JAAPBGVCJRDCHEFSFBWGBFHEGIICJDDKKOLF"],
     ]
 
+# Ugh, transpiled Java code
+def normalize(placement):
+    pp = [None] * 12;
+    flip = False;
+    for i in range(0, len(placement), 3):
+        idx = ord(placement[i + 1]) - ord('A')
+        pp[idx] = placement[i : i + 3]
+        if (idx == 0):
+           flip = (ord(placement[i]) - ord('A')) > 11
+
+    norm = ""
+    for i in range(len(pp)):
+        if (pp[i] != None):
+            norm += pp[i];
+
+    if (flip):
+       norm = flipPlacement(norm);
+
+    return norm;
+
+# More of the same
+def flipPlacement(placement):
+    flipped = ""
+    for i in range(0, len(placement), 3):
+        origin = ord(placement[i]) - ord('A')
+        piece = placement[i + 1]
+        orientation = ord(placement[i + 2]) - ord('A')
+
+        origin = 23 - origin
+        if orientation < 6:
+            orientation = (orientation + 3) % 6
+        else:
+            orientation = 6 + ((orientation + 3) % 6)
+
+        flipped += (chr(origin + ord('A')) + piece + chr(orientation + ord('A')))
+        
+    return flipped;
+
+
 def runTest(uid, placements):
     call(["rm", "-rf", baseDir + "/*"])
     call(["cp", jarDir + "/" + uid + ".jar", baseDir + "/injar.jar"])
@@ -62,16 +101,16 @@ def runTest(uid, placements):
         fp = open(baseDir + "/out.txt")
         res1 = []
         for result in fp.readlines():
-            res1.append(result.rstrip().lstrip())
+            res1.append(normalize(result.rstrip().lstrip()))
         fp.close()
-    except:
+    except OSError:
         res1 = ["!!NO RESULTS!!"]
 
     try:
         fp = open(baseDir + "/debug.txt")
         res2 = fp.read().rstrip().lstrip()
         fp.close()
-    except:
+    except OSError:
         res2 = "No data."
 
     return (sorted(res1), res2)
@@ -82,7 +121,7 @@ def doTests(uid):
         if len(result[0]) != 1 or result[0][0] != test[1]:
             return (False, "Input: %s\nExpecting: %s\nGot: %s\nAdditional debug information:\n%s\n" %(test[0], str([test[1]]), str(result[0]), result[1]))
     
-    for test in SOLUTIONS_MULTIPLE:
+    for test in SOLUTIONS_MULTI:
         result = runTest(uid, test[0])
         if len(result[0]) != len(test) - 1 or result[0] != sorted(test[1:]):
             return (False, "Input: %s\nExpecting: %s\nGot: %s\nAdditional debug information:\n%s\n" %(test[0], str(test[1:]), str(result[0]), result[1]))

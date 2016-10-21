@@ -14,14 +14,16 @@ this.class.classLoader.rootLoader.addURL(localFile.toURI().toURL());
 
 try {
     String[] output = Class.forName("comp1110.ass2.LinkGame").getSolutions(input);
-    def outFile = new File(baseDir + "/out.txt");
+    PrintWriter outFile = new PrintWriter(baseDir + "/out.txt");
     if (output != null) {
         for (String sol : output) {
             outFile.write(sol);
             outFile.write("\n");
         }
+        outFile.close()
     } else {
         debugFile.write("LinkGame.getSolutions() returned null");
+        outFile.close()
     }
 } catch (Exception e) {
     PrintWriter writer = new PrintWriter(debugFile);
