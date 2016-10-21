@@ -1,6 +1,6 @@
 <?php
-    // TODO: Make all this actually work
-    session_start();
+    include 'session.php';
+
     if (!isset($_SESSION['csrf'])) { $_SESSION['csrf'] = base64_encode( openssl_random_pseudo_bytes(32) ); }
 
     if (isset($_POST['what']) && $_POST['what'] === 'logout') {
