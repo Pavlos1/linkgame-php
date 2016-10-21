@@ -38,5 +38,5 @@ fi
 
 if [ -f /srv/daemons/db.py ]; then
     sudo chown $user /srv/daemons/db.py
-    sudo chmod 0600 $dir/db.py
+    sudo chmod 0600 /srv/daemons/db.py
 fi

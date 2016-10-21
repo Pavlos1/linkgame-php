@@ -4,7 +4,7 @@
 # Must be running as root to work.
 
 from time import sleep
-from subproccess import call
+from subprocess import call
 
 while True:
     fp = open("/srv/res", "r")
