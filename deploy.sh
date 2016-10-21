@@ -8,7 +8,11 @@ sudo mkdir -p /srv/daemons
 sudo chown root /srv/daemons
 sudo chgrp root /srv/daemons
 
-if [ $1 == 'arch' ]; then
+if [ $# -lt 1 ]; then
+    # Ubuntu
+    dir=/var/www/html
+    user=www-data
+elif [ $1 == 'arch' ]; then
     # Arch Linux
     dir=/srv/http
     user=http
