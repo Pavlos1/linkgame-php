@@ -1,6 +1,8 @@
 <?php
     include 'access.php';
     include 'db.php';
+    // TODO: CSRF damn it
+    // TODO: Make UI look less like total crap
 
     function getTestData() {
         global $uid;
@@ -61,7 +63,7 @@
 <html>
     <h1>Welcome</h1>
     <?php if (isset($msg)) { print("<p>$msg</p>"); } ?>
-    <p>You have successfully authenticated as <?=$uid?>.
+    <p>You have successfully authenticated as <?=htmlspecialchars($uid)?>.
 Please only make one submission per group.</p>
     <p>Upload JAR file:</p>
     <form method="post" action="/index.php" enctype="multipart/form-data">
@@ -86,7 +88,11 @@ JavaScript disabled, you may need to refresh the page repeatedly.</p>
             else if ($rows[0][2] === 1) { print '<p>All tests passed. Your bot is now registered in the tournament.</p>'; }
             else if ($rows[0][2] === -1) { 
                 print '<p>Some tests failed. See debug log below:</p>';
-                if (!($rows[0][3] === NULL)) print("<p>$rows[0][2]</p>"); 
+                if (!($rows[0][3] === NULL)) {
+                    foreach(preg_split("/((\r?\n)|(\r\n?))/", $rows[0][3]) as $line){
+                        print("<p>" . htmlspecialchars($line) . "</p>");
+                    }
+                } 
             }
         }
     }
@@ -95,5 +101,5 @@ JavaScript disabled, you may need to refresh the page repeatedly.</p>
     <input type="hidden" name="what" value="logout"/>
     <button type="submit">Logout</button>
     </form>
-    <p>TODO: Implement tournament</p> 
+    <p>TODO: Implement tournament. Also JavaScript.</p> 
 </html>

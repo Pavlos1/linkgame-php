@@ -94,11 +94,21 @@ if __name__ == "__main__":
         cnx = db.dbConnect("linkgame")
         cur = cnx.cursor()
         cur.execute(("SELECT * FROM tests;"))
-        for (ID, uid, testStatus, debug) in cur:
+        dbout = cur.fetchall()
+        cnx.close()
+        for (ID, uid, testStatus, debug) in dbout:
             if testStatus == 0:
                 result = doTests(uid)
                 if result[0]:
-                    cur.execute("UPDATE tests SET testStatus=1 WHERE uid=%s", [uid])
+                    cnx = db.dbConnect("linkgame")
+                    cur = cnx.cursor()
+                    cur.execute("UPDATE tests SET testStatus=1 WHERE uid=%s;", [uid])
+                    cnx.commit()
+                    cnx.close()
                 else:
-                    cur.execute("UPDATE tests SET testStatus=-1, debug=%s WHERE uid=%s", [result[1], uid])
+                    cnx = db.dbConnect("linkgame")
+                    cur = cnx.cursor()
+                    cur.execute("UPDATE tests SET testStatus=-1, debug=%s WHERE uid=%s;", [result[1], uid])
+                    cnx.commit()
+                    cnx.close()
         sleep(5)

@@ -1,4 +1,5 @@
 <?php
+    // TODO: Make all this actually work
     session_start();
 
     if (isset($_POST['what']) && $_POST['what'] === 'logout') {
