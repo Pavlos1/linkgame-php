@@ -1,7 +1,6 @@
 <?php
     include 'access.php';
     include 'db.php';
-    // TODO: CSRF damn it
     // TODO: Make UI look less like total crap
 
     function getTestData() {
@@ -48,6 +47,12 @@
     }
 
     if (isset($_POST['submit']) && isset($_POST['what']) && $_POST['what'] === 'upload') {
+        if ((!isset($_POST['csrf'])) || (!($_POST['csrf'] === $_SESSION['csrf']))) {
+            ?>
+                <html><h1>CSRF verification failed</h1></html>
+            <?php
+            exit();
+        }
         $target_dir = '/srv/jars/';
         $target_file = $target_dir . $uid . '.jar';
         if (move_uploaded_file($_FILES['jar']['tmp_name'], $target_file)) {
@@ -68,6 +73,7 @@ Please only make one submission per group.</p>
     <p>Upload JAR file:</p>
     <form method="post" action="/index.php" enctype="multipart/form-data">
         <input type="hidden" name="what" value="upload"/>
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"/>
         <input type="file" name="jar" id="jar"/>
         <input type="submit" value="Upload JAR" name="submit"/>
     </form>
@@ -98,6 +104,7 @@ JavaScript disabled, you may need to refresh the page repeatedly.</p>
     }
 ?>
     <form method="post" action="/logout.php">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"/>
     <input type="hidden" name="what" value="logout"/>
     <button type="submit">Logout</button>
     </form>

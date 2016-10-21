@@ -15,10 +15,15 @@
         $httponly);
 
     session_start();
+    if (!isset($_SESSION['csrf'])) { $_SESSION['csrf'] = base64_encode( openssl_random_pseudo_bytes(32) ); }
 
     // User has submitted login form
     if (isset($_POST['uid']) && isset($_POST['password']) && isset($_POST['what']) && ($_POST['what'] === 'login')) {
         // TODO: Figure out how LDAP works
+
+        if ((!isset($_POST['csrf'])) || (!($_POST['csrf'] === $_SESSION['csrf']))) {
+            showLogin('CSRF verification failed.');
+        }
 
         if (($_POST['uid'] === '') || ($_POST['password'] === '')) {
             showLogin('Username and password fields cannot be blank.');
@@ -64,6 +69,7 @@
         <p>(These will not be stored on the server.)</p>
         <form method="post" action="/index.php">
         <input type="hidden" name="what" value="login"/>
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"/>
         <table>
             <tr>
                 <td><p>Username: </p></td>
