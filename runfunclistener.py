@@ -16,7 +16,7 @@ while True:
         # Run it! I'm being generous with the time
         # here to allow for VM spinup etc
         call(["timeout", "--foreground", "5", "sudo", "-u", "mallory", "/srv/daemons/runfunc.groovy"])
-        call(["pkill", "-u", "mallory"])
+        call(["pkill", "-9", "-u", "mallory"])
         fp = open("/srv/res", "w")
         fp.write("completed");
         fp.close()

@@ -30,6 +30,8 @@ SOLUTIONS_MULTI = [
 
 # Ugh, transpiled Java code
 def normalize(placement):
+    if placement == "" or placement[0] == '!':
+        return ""
     pp = [None] * 12;
     flip = False;
     for i in range(0, len(placement), 3):
@@ -50,6 +52,8 @@ def normalize(placement):
 
 # More of the same
 def flipPlacement(placement):
+    if placement == "" or placement[0] == '!':
+        return ""
     flipped = ""
     for i in range(0, len(placement), 3):
         origin = ord(placement[i]) - ord('A')

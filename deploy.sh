@@ -36,6 +36,8 @@ for i in $(ls | grep php$); do
     sudo cp $i $dir/;
     done
 
+sudo cp -r api $dir/
+
 for i in $(ls | grep '\(groovy$\|py$\)'); do
     sudo cp $i /srv/daemons/;
     done
