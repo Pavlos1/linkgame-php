@@ -98,6 +98,7 @@ def runTest(uid, placements):
         contents = fp.read().lower()
         fp.close()
         if "completed" in contents:
+            res3 = int(contents.split(":")[1])
             break
         sleep(1)
 
@@ -117,7 +118,7 @@ def runTest(uid, placements):
     except OSError:
         res2 = "No data."
 
-    return (sorted(res1), res2)
+    return (sorted(res1), res2, res3)
 
 def doTests(uid):
     for test in SOLUTIONS_ONE:
