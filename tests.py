@@ -29,6 +29,8 @@ SOLUTIONS_MULTI = [
     ]
 
 def runTest(uid, placements):
+    call(["mkdir", "-p", baseDir])
+    call(["chmod", "777", baseDir])
     call(["rm", "-rf", baseDir + "/*"])
     call(["cp", jarDir + "/" + uid + ".jar", baseDir + "/injar.jar"])
     # TODO: Call actual program. This is '/srv/daemons/runfunc.groovy', but must be run as user 'mallory'
