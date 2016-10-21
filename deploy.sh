@@ -12,14 +12,17 @@ if [ $# -lt 1 ]; then
     # Ubuntu
     dir=/var/www/html
     user=www-data
+    os=ubuntu
 elif [ $1 == 'arch' ]; then
     # Arch Linux
     dir=/srv/http
     user=http
+    os=arch
 else
     # Ubuntu
     dir=/var/www/html
     user=www-data
+    os=ubuntu
 fi
 
 sudo mkdir -p $dir
@@ -50,4 +53,12 @@ fi
 if [ -f /srv/daemons/db.py ]; then
     sudo chown $user /srv/daemons/db.py
     sudo chmod 0600 /srv/daemons/db.py
+fi
+
+if [ $os == "arch" ]; then
+    sudo systemctl restart httpd
+else
+    # One of them should work...
+    sudo systemctl restart apache2
+    sudo service apache2 restart
 fi

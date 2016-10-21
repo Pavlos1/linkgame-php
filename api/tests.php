@@ -3,23 +3,26 @@
     include '../dbfunc.php';
 
     if ((!isset($_GET['csrf'])) || (!($_GET['csrf'] === $_SESSION['csrf']))) {
-        print("[false]");
+        error_log('CSRF verification failed, ' . $_SESSION['csrf'] . ' !== ' . $_GET['csrf']);
+        print('[false]');
         exit();
     }
 
     if (!isset($_SESSION['uid'])) {
-        print("[false]");
+        error_log('Unauthorized access to test data');
+        print('[false]');
         exit();
     }
     $uid = $_SESSION['uid'];
 
     $res = getTestData($uid);
     if (!($res === "ok")) {
-        print("[false]");
+        error_log($res);
+        print('[false]');
         exit();
     }
     if (!isset($rows) || count($rows) === 0) {
-        print("[false]");
+        print('[false]');
         exit();
     }
 
