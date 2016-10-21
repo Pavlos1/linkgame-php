@@ -6,6 +6,8 @@
 from time import sleep
 from subprocess import call
 
+baseDir = "/srv/mallory"
+
 while True:
     fp = open("/srv/res", "r")
     contents = fp.read().lower()
@@ -13,7 +15,7 @@ while True:
     if "running" in contents:
         # Run it! I'm being generous with the time
         # here to allow for VM spinup etc
-        call(["timeout", "--foreground", "5", "su", "-u", "mallory", "/srv/daemons/runfunc.groovy"])
+        call(["timeout", "--foreground", "5", "sudo", "-u", "mallory", "/srv/daemons/runfunc.groovy"])
         call(["pkill", "-u", "mallory"])
         fp = open("/srv/res", "w")
         fp.write("completed");

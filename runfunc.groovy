@@ -3,11 +3,11 @@
 // injar.jar is the JAR file with LinkGame.getSolutions()
 // out.txt is formatted one solution per line
 
-def debugFile = new File(baseDir + "/debug.txt");
-debugFile.write("No data.");
-
 String baseDir = "/srv/mallory";
 String input = new File(baseDir + "/in.txt").text.trim();
+
+def debugFile = new File(baseDir + "/debug.txt");
+debugFile.write("No data.");
 
 def localFile = new File(baseDir + "/injar.jar");
 this.class.classLoader.rootLoader.addURL(localFile.toURI().toURL());

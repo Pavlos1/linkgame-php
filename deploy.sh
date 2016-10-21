@@ -23,6 +23,11 @@ sudo touch /srv/res
 sudo chown $user /srv/res
 sudo chmod 0600 /srv/res
 
+sudo mkdir -p /srv/mallory
+sudo chown $user /srv/mallory
+# The sticky bit will prevent this folder from getting deleted by mallory
+sudo chmod 1777 /srv/mallory
+
 for i in $(ls | grep php$); do
     sudo cp $i $dir/;
     done

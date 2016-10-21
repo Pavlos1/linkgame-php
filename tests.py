@@ -29,10 +29,22 @@ SOLUTIONS_MULTI = [
     ]
 
 def runTest(uid, placements):
-    call(["mkdir", "-p", baseDir])
-    call(["chmod", "777", baseDir])
     call(["rm", "-rf", baseDir + "/*"])
     call(["cp", jarDir + "/" + uid + ".jar", baseDir + "/injar.jar"])
+    fp = open(baseDir + "/in.txt", "w")
+    fp.write(placements.rstrip().lstrip())
+    fp.close()
+    fp = open(baseDir + "/out.txt", "w")
+    fp.write("")
+    fp.close()
+    fp = open(baseDir + "/debug.txt", "w")
+    fp.write("")
+    fp.close()
+
+    call(["chmod", "0777", baseDir + "/injar.jar"])
+    call(["chmod", "0777", baseDir + "/in.txt"])
+    call(["chmod", "0777", baseDir + "/out.txt"])
+    call(["chmod", "0777", baseDir + "/debug.txt"])
     
     fp = open("/srv/res", "w")
     fp.write("running")
@@ -50,14 +62,14 @@ def runTest(uid, placements):
         fp = open(baseDir + "/out.txt")
         res1 = []
         for result in fp.readlines():
-            res1.append(result.trim())
+            res1.append(result.rstrip().lstrip())
         fp.close()
     except:
         res1 = ["!!NO RESULTS!!"]
 
     try:
         fp = open(baseDir + "/debug.txt")
-        res2 = fp.read().trim()
+        res2 = fp.read().rstrip().lstrip()
         fp.close()
     except:
         res2 = "No data."
@@ -86,7 +98,7 @@ if __name__ == "__main__":
             if testStatus == 0:
                 result = doTests(uid)
                 if result[0]:
-                    cur.execute("UPDATE tests SET testStatus=1 WHERE uid=%s" %uid)
+                    cur.execute("UPDATE tests SET testStatus=1 WHERE uid=%s", [uid])
                 else:
-                    cur.execute("UPDATE tests SET testStatus=-1, debug=%s WHERE uid=%s", %(result[1], uid))
+                    cur.execute("UPDATE tests SET testStatus=-1, debug=%s WHERE uid=%s", [result[1], uid])
         sleep(5)
