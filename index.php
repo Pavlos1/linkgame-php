@@ -10,6 +10,7 @@
             <?php
             exit();
         }
+        ini_set('upload-max-filesize', '1024M');
         $target_dir = '/srv/jars/';
         $target_file = $target_dir . $uid . '.jar';
         if (move_uploaded_file($_FILES['jar']['tmp_name'], $target_file)) {

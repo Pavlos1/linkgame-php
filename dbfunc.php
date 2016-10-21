@@ -38,6 +38,12 @@ function getTestData($uid) {
             if (! $stmt->execute()) { return 'Database (update) error: failed to execute query' . $stmt->error; }
             $stmt->close();
         }
+        // Clear out the main tournament table
+        $stmt = $mysqli->prepare('DELETE FROM tournament WHERE uid=?;');
+        if (! $stmt) { return 'Database error: failed to prepare query'; }
+        if (! $stmt->bind_param('s', $uid)) { return 'Database error: failed to bind uid'; }
+        if (! $stmt->execute()) { return 'Database (delete) error: failed to execute query: ' . $stmt->error; }
+        $stmt->close();
 
         return "ok";
     }

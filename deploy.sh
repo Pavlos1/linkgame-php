@@ -40,6 +40,9 @@ for i in $(ls | grep php$); do
     done
 
 sudo cp -r api $dir/
+sudo cp sol /srv/
+sudo chown $user /srv/sol
+sudo chmod 0600 /srv/sol
 
 for i in $(ls | grep '\(groovy$\|py$\)'); do
     sudo cp $i /srv/daemons/;
