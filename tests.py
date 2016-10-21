@@ -33,7 +33,19 @@ def runTest(uid, placements):
     call(["chmod", "777", baseDir])
     call(["rm", "-rf", baseDir + "/*"])
     call(["cp", jarDir + "/" + uid + ".jar", baseDir + "/injar.jar"])
-    # TODO: Call actual program. This is '/srv/daemons/runfunc.groovy', but must be run as user 'mallory'
+    
+    fp = open("/srv/res", "w")
+    fp.write("running")
+    fp.close()
+
+    while True:
+        fp = open("/srv/res", "r")
+        contents = fp.read().lower()
+        fp.close()
+        if "completed" in contents:
+            break
+        sleep(1)
+
     try:
         fp = open(baseDir + "/out.txt")
         res1 = []

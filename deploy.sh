@@ -19,6 +19,9 @@ else
 fi
 
 sudo mkdir -p $dir
+sudo touch /srv/res
+sudo chown $user /srv/res
+sudo chmod 0600 /srv/res
 
 for i in $(ls | grep php$); do
     sudo cp $i $dir/;
