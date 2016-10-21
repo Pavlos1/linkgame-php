@@ -42,9 +42,9 @@ def runTest(uid, placements):
     fp.close()
 
     call(["chmod", "0777", baseDir + "/injar.jar"])
-    call(["chmod", "0777", baseDir + "/in.txt"])
-    call(["chmod", "0777", baseDir + "/out.txt"])
-    call(["chmod", "0777", baseDir + "/debug.txt"])
+    call(["chmod", "0666", baseDir + "/in.txt"])
+    call(["chmod", "0666", baseDir + "/out.txt"])
+    call(["chmod", "0666", baseDir + "/debug.txt"])
     
     fp = open("/srv/res", "w")
     fp.write("running")

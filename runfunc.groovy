@@ -25,7 +25,7 @@ try {
     }
 } catch (Exception e) {
     PrintWriter writer = new PrintWriter(debugFile);
-    e.printStackTrace();
+    e.printStackTrace(writer);
     writer.close()
 
     writer = new PrintWriter(new File(baseDir + "/out.txt"));
