@@ -1,2 +1,4 @@
 # LinkGame Tournament Server
-See LICENSE.md
+TODO: Add setup instructions
+
+See also: LICENSE.md
