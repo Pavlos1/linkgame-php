@@ -15,9 +15,13 @@ this.class.classLoader.rootLoader.addURL(localFile.toURI().toURL());
 try {
     String[] output = Class.forName("comp1110.ass2.LinkGame").getSolutions(input);
     def outFile = new File(baseDir + "/out.txt");
-    for (String sol : output) {
-        outFile.write(sol);
-        outFile.write("\n");
+    if (output != null) {
+        for (String sol : output) {
+            outFile.write(sol);
+            outFile.write("\n");
+        }
+    } else {
+        debugFile.write("LinkGame.getSolutions() returned null");
     }
 } catch (Exception e) {
     PrintWriter writer = new PrintWriter(debugFile);
