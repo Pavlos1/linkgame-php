@@ -36,6 +36,7 @@ def testUsers():
     users = getTenNewestUsers()
     # Not quite as dumb as it looks
     times = [[]] * len(users)
+    totaldebug = ""
     for trial in range(10):
     for tupIndex in range(len(users)):
         (uid, placementID) = users[tupIndex]
@@ -55,21 +56,23 @@ def testUsers():
             if len(answer) != 1 or answer[0] != raw[placementdID]:
                 timeTaken += 10000
             times[tupIndex].append(timeTaken)
+            totaldebug += debug
+            totaldebug += ("\n" + ("-"*20) + "\n")
     ret = []
     for i in range(len(users)):
         if times[i] == []:
-            ret.append((users[i][0], users[i][1], None))
+            ret.append((users[i][0], users[i][1], None, "No data."))
         else:
-            ret.append((users[i][0], users[i][1], int(sum(times[i])/len(times[i]))))
+            ret.append((users[i][0], users[i][1], int(sum(times[i])/len(times[i]))), totaldebug)
             
 
 if __name__ == "__main__":
     while True:
         cnx = db.dbConnect("linkgame")
         cur = cnx.cursor()
-        for (uid, placementID, avgtime) in testUsers():
+        for (uid, placementID, avgtime, debug) in testUsers():
             if (avgtime != None):
-                cur.execute("INSERT INTO tournament SET uid=%s, placementID=%i, timeTaken=%i", [uid, placementID, avgtime])
+                cur.execute("INSERT INTO tournament SET uid=%s, placementID=%i, timeTaken=%i, debug=%s;", [uid, placementID, avgtime, debug])
         
         cnx.commit()
         cnx.close()
