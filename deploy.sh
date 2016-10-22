@@ -1,6 +1,18 @@
 #!/bin/sh
 set -o xtrace
 
+if [ -f db.py ]; then
+    chmod 0600 db.py
+fi
+
+if [ -f db.php ]; then
+    chmod 0600 db.php
+fi
+
+if [ -f sol.txt ]; then
+    chmod 0600 sol.txt
+fi
+
 sudo mkdir -p /srv/jars
 sudo chown root /srv/jars
 sudo chgrp root /srv/jars
@@ -40,9 +52,9 @@ for i in $(ls | grep php$); do
     done
 
 sudo cp -r api $dir/
-sudo cp sol /srv/
-sudo chown $user /srv/sol
-sudo chmod 0600 /srv/sol
+sudo cp sol.txt /srv/
+sudo chown $user /srv/sol.txt
+sudo chmod 0600 /srv/sol.txt
 
 for i in $(ls | grep '\(groovy$\|py$\)'); do
     sudo cp $i /srv/daemons/;
