@@ -20,6 +20,7 @@ fi
 if [ $(whoami) == "root"  ]; then
     sudo /srv/daemons/runfunclistener.py &
     sudo -u $user /srv/daemons/tests.py &
+    sudo -u $user /srv/daemons/tournament.py &
 else
     sudo $0 $arg1
 fi

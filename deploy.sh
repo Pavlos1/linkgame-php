@@ -14,8 +14,6 @@ if [ -f sol.txt ]; then
 fi
 
 sudo mkdir -p /srv/jars
-sudo chown root /srv/jars
-sudo chgrp root /srv/jars
 sudo mkdir -p /srv/daemons
 sudo chown root /srv/daemons
 sudo chgrp root /srv/daemons
@@ -36,6 +34,10 @@ else
     user=www-data
     os=ubuntu
 fi
+
+sudo chown $user /srv/jars
+sudo chgrp $user /srv/jars
+sudo chmod 0700 /srv/jars
 
 sudo mkdir -p $dir
 sudo touch /srv/res
