@@ -3,9 +3,9 @@
 // injar.jar is the JAR file with LinkGame.getSolutions()
 // out.txt is formatted one solution per line
 
-String baseDir = "/srv/mallory"
-if (this.args.length > 2 && this.args[1].equals("tournament")) {
-    baseDir = "/srv/malloryt"
+String baseDir = "/srv/mallory";
+if (this.args.length > 0 && this.args[0].equals("tournament")) {
+    baseDir = "/srv/malloryt";
 }
 
 String input = new File(baseDir + "/in.txt").text.trim();

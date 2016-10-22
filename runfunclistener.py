@@ -8,8 +8,6 @@ from timeit import timeit
 from subprocess import call
 from sys import argv
 
-baseDir = "/srv/mallory"
-
 while True:
     if len(argv) > 1 and argv[1] == "tournament":
         path = "/srv/rest"
