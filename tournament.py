@@ -24,7 +24,7 @@ def getTenNewestUsers():
         cur.execute("SELECT placementID FROM tournament WHERE uid=%s", [uid])
         dbmaxs = cur.fetchall()
         cnx.close()
-        maximum = 0
+        maximum = -1
         for (placementID,) in dbmaxs:
             if placementID > maximum:
                 maximum = placementID
@@ -55,15 +55,18 @@ def testUsers():
                 # This is included in the mean calculation
                 if len(answer) != 1 or answer[0] != raw[placementID]:
                     timeTaken += 10000
+                    print "[debug] Answer incorrect or not given", uid, placementID
+                else:
+                    print "[debug] Answer correct", uid, placementID
                 times[tupIndex].append(timeTaken)
                 totaldebug += debug
                 totaldebug += ("\n" + ("-"*20) + "\n")
     ret = []
     for i in range(len(users)):
         if times[i] == []:
-            ret.append((users[i][0], users[i][1], None, "No data."))
+            ret.append((users[i][0], users[i][1] + 1, None, "No data."))
         else:
-            ret.append((users[i][0], users[i][1], int(sum(times[i])/len(times[i])), totaldebug))
+            ret.append((users[i][0], users[i][1] + 1, int(sum(times[i])/len(times[i])), totaldebug))
 
     return ret; 
 
