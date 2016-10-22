@@ -40,14 +40,22 @@ sudo chgrp $user /srv/jars
 sudo chmod 0700 /srv/jars
 
 sudo mkdir -p $dir
+sudo rm -f /srv/res
+sudo rm -f /srv/rest
 sudo touch /srv/res
+sudo touch /srv/rest
 sudo chown $user /srv/res
 sudo chmod 0600 /srv/res
+sudo chown $user /srv/rest
+sudo chmod 0600 /srv/rest
 
 sudo mkdir -p /srv/mallory
 sudo chown $user /srv/mallory
+sudo mkdir -p /srv/malloryt
+sudo chown $user /srv/malloryt
 # The sticky bit will prevent this folder from getting deleted by mallory
 sudo chmod 1777 /srv/mallory
+sudo chmod 1777 /srv/malloryt
 
 for i in $(ls | grep php$); do
     sudo cp $i $dir/;

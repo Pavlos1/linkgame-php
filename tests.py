@@ -71,30 +71,37 @@ def flipPlacement(placement):
     return flipped;
 
 
-def runTest(uid, placements):
-    call(["rm", "-rf", baseDir + "/*"])
-    call(["cp", jarDir + "/" + uid + ".jar", baseDir + "/injar.jar"])
-    fp = open(baseDir + "/in.txt", "w")
+def runTest(uid, placements, tournament=False):
+    if tournament:
+        path = "/srv/rest"
+        base = "/srv/malloryt"
+    else:
+        path = "/srv/res"
+        base = "/srv/mallory"
+
+    call(["rm", "-rf", base + "/*"])
+    call(["cp", jarDir + "/" + uid + ".jar", base + "/injar.jar"])
+    fp = open(base + "/in.txt", "w")
     fp.write(placements.rstrip().lstrip())
     fp.close()
-    fp = open(baseDir + "/out.txt", "w")
+    fp = open(base + "/out.txt", "w")
     fp.write("")
     fp.close()
-    fp = open(baseDir + "/debug.txt", "w")
+    fp = open(base + "/debug.txt", "w")
     fp.write("")
     fp.close()
 
-    call(["chmod", "0777", baseDir + "/injar.jar"])
-    call(["chmod", "0666", baseDir + "/in.txt"])
-    call(["chmod", "0666", baseDir + "/out.txt"])
-    call(["chmod", "0666", baseDir + "/debug.txt"])
+    call(["chmod", "0777", base + "/injar.jar"])
+    call(["chmod", "0666", base + "/in.txt"])
+    call(["chmod", "0666", base + "/out.txt"])
+    call(["chmod", "0666", base + "/debug.txt"])
     
-    fp = open("/srv/res", "w")
+    fp = open(path, "w")
     fp.write("running")
     fp.close()
 
     while True:
-        fp = open("/srv/res", "r")
+        fp = open(path, "r")
         contents = fp.read().lower()
         fp.close()
         if "completed" in contents:
@@ -103,7 +110,7 @@ def runTest(uid, placements):
         sleep(1)
 
     try:
-        fp = open(baseDir + "/out.txt")
+        fp = open(base + "/out.txt")
         res1 = []
         for result in fp.readlines():
             res1.append(normalize(result.rstrip().lstrip()))
@@ -112,13 +119,14 @@ def runTest(uid, placements):
         res1 = ["!!NO RESULTS!!"]
 
     try:
-        fp = open(baseDir + "/debug.txt")
+        fp = open(base + "/debug.txt")
         res2 = fp.read().rstrip().lstrip()
         fp.close()
     except OSError:
         res2 = "No data."
 
     return (sorted(res1), res2, res3)
+
 
 def doTests(uid):
     for test in SOLUTIONS_ONE:

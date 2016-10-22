@@ -18,7 +18,8 @@ else
 fi
 
 if [ $(whoami) == "root"  ]; then
-    sudo /srv/daemons/runfunclistener.py &
+    sudo /srv/daemons/runfunclistener.py tests &
+    sudo /srv/daemons/runfunclistener.py tournament &
     sudo -u $user /srv/daemons/tests.py &
     sudo -u $user /srv/daemons/tournament.py &
 else

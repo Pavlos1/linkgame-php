@@ -30,7 +30,7 @@ def getTenNewestUsers():
                 maximum = placementID
         users.append((uid, maximum))
 
-    return sorted(users, lambda x: x[1])[:10]
+    return sorted(users, key=lambda x: x[1])[:10]
 
 def testUsers():
     users = getTenNewestUsers()
@@ -47,10 +47,10 @@ def testUsers():
             else:
                 if placementID == len(raw) - 1:
                     # Ahahahahaha have fun
-                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:3])
+                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:3], True)
                 else:
                     # 3 tiles * 3 chars/tile = 9 chars (~ 1s)
-                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:9])
+                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:9], True)
                 # An incorrect answer incurs a 10s penalty.
                 # This is included in the mean calculation
                 if len(answer) != 1 or answer[0] != raw[placementID]:
