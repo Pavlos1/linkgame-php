@@ -56,10 +56,10 @@
                             }
                         }
                     });
-                    oReq.open("GET", "/api/tests.php?csrf=<?=$_SESSION['csrf']?>");
+                    oReq.open("GET", "/api/tests.php");
                     oReq.send();
                 }, 5000);
-            }
+            };
         </script>
     </head>
 
@@ -67,6 +67,7 @@
     <?php if (isset($msg)) { print("<p>$msg</p>"); } ?>
     <p>You have successfully authenticated as <?=htmlspecialchars($uid)?>.
 Please only make one submission per group.</p>
+    <p><a href="/results.php">See tournament results.</a></p>
     <p>Upload JAR file:</p>
     <form method="post" action="/index.php" enctype="multipart/form-data">
         <input type="hidden" name="what" value="upload"/>
@@ -107,5 +108,4 @@ JavaScript disabled, you may need to refresh the page repeatedly.</p>
     <input type="hidden" name="what" value="logout"/>
     <button type="submit">Logout</button>
     </form>
-    <p>TODO: Implement tournament.</p> 
 </html>
