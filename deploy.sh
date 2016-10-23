@@ -1,6 +1,8 @@
 #!/bin/sh
 set -o xtrace
 
+./killdaemons.sh
+
 if [ -f db.py ]; then
     chmod 0600 db.py
 fi
