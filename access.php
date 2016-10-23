@@ -47,24 +47,27 @@
     function showLogin($message='') {
 ?>
     <html>
+        <head>
+            <title>Login</title>
+        </head>
         <h1>Login Required</h1>
         <?php if (isset($message)) { echo("<p>$message</p>"); } ?>
         <h3>Please enter your ANU credentials</h3>
         <p>(These will not be stored on the server.)</p>
         <form method="post" action="/index.php">
-        <input type="hidden" name="what" value="login"/>
-        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"/>
-        <table>
-            <tr>
-                <td><p>Username: </p></td>
-                <td><input type="text" name="uid"/></td>
-            </tr>
-            <tr>
-                <td><p>Password: </p></td>
-                <td><input type="password" name="password"/></td>
-            </tr>
-            <tr><td><button type="submit">Login</button></td></tr>
-        </table>
+            <input type="hidden" name="what" value="login"/>
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"/>
+            <table>
+                <tr>
+                    <td><p>Username: </p></td>
+                    <td><input type="text" name="uid"/></td>
+                </tr>
+                <tr>
+                    <td><p>Password: </p></td>
+                    <td><input type="password" name="password"/></td>
+                </tr>
+                <tr><td><button type="submit">Login</button></td></tr>
+            </table>
         </form>
     </html>
 <?php

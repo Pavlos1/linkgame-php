@@ -24,6 +24,7 @@
 
 <html>
     <head>
+        <title>LinkGame Tournament</title>
         <script type="text/javascript">
             window.onload = function() {
                 setInterval(function() {
@@ -63,7 +64,7 @@
         </script>
     </head>
 
-    <h1>Welcome</h1>
+    <h1>LinkGame Tournament - Home</h1>
     <?php if (isset($msg)) { print("<p>$msg</p>"); } ?>
     <p>You have successfully authenticated as <?=htmlspecialchars($uid)?>.
 Please only make one submission per group.</p>
