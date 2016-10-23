@@ -55,9 +55,9 @@ sudo chown $user /srv/rest
 sudo chmod 0600 /srv/rest
 
 sudo mkdir -p /srv/mallory
-sudo chown $user /srv/mallory
+sudo chown $user -R /srv/mallory
 sudo mkdir -p /srv/malloryt
-sudo chown $user /srv/malloryt
+sudo chown $user -R /srv/malloryt
 # The sticky bit will prevent this folder from getting deleted by mallory
 sudo chmod 1777 /srv/mallory
 sudo chmod 1777 /srv/malloryt

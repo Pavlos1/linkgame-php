@@ -55,10 +55,12 @@ def testUsers():
                 # This is included in the mean calculation
                 if len(answer) != 1 or answer[0] != raw[placementID]:
                     timeTaken += 10000
-                    print "[debug] Answer incorrect or not given", uid, placementID
+                    print "[debug] Answer incorrect or not given", uid, placementID, timeTaken
                 else:
-                    print "[debug] Answer correct", uid, placementID
-                times[tupIndex].append(timeTaken)
+                    print "[debug] Answer correct", uid, placementID, timeTaken
+                # I have to do it this was because Python's lists are pass-by-reference
+                # Seriously, both 'times[tupIndex].append(...)' and 'times[tupIndex] += [...]' fail!!
+                times[tupIndex] = times[tupIndex] + [timeTaken]
                 totaldebug[tupIndex] += debug
                 totaldebug += ("\n" + ("-"*20) + "\n")
     ret = []
