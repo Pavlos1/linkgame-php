@@ -20,4 +20,12 @@
         exit();
     }
 
-    print(json_encode($rows[0]));
+    $ret = array();
+    foreach ($rows[0] as $item) {
+        if (is_int($item)) {
+            array_push($ret, $item);
+        } else {
+            array_push($ret, htmlspecialchars($item));
+        }
+    }
+    print(json_encode($ret));

@@ -65,7 +65,7 @@
     </head>
 
     <h1>LinkGame Tournament - Home</h1>
-    <?php if (isset($msg)) { print("<p>$msg</p>"); } ?>
+    <?php if (isset($msg)) { print('<p>' . htmlspecialchars($msg) . '</p>'); } ?>
     <p>You have successfully authenticated as <?=htmlspecialchars($uid)?>.
 Please only make one submission per group.</p>
     <p><a href="/results.php">See tournament results.</a></p>
@@ -85,7 +85,7 @@ JavaScript disabled, you may need to refresh the page repeatedly.</p>
     <div id="testresults">
 <?php
     $res = getTestData($uid);
-    if (!($res === "ok")) print("<p>$res</p>");
+    if (!($res === "ok")) print('<p>' . htmlspecialchars($res) . '</p>');
     else {
         if (count($rows) === 0) {
             print('<p>No file uploaded.</p>');

@@ -37,9 +37,9 @@
                 ?>
                     <tr>
                         <td><p><?=$rank?></p></td>
-                        <td><p><?=$entry[0]?></p></td>
-                        <td><p><?=$entry[1]?></p></td>
-                        <td><p><?=$entry[2]?></p></td>
+                        <td><p><?=htmlspecialchars($entry[0])?></p></td>
+                        <td><p><?=htmlspecialchars($entry[1])?></p></td>
+                        <td><p><?=htmlspecialchars($entry[2])?></p></td>
                     </tr>
                 <?php
             $rank++;
