@@ -2,12 +2,6 @@
     include '../session.php';
     include '../dbfunc.php';
 
-    if ((!isset($_GET['csrf'])) || (!($_GET['csrf'] === $_SESSION['csrf']))) {
-        error_log('CSRF verification failed, ' . $_SESSION['csrf'] . ' !== ' . $_GET['csrf']);
-        print('[false]');
-        exit();
-    }
-
     if (!isset($_SESSION['uid'])) {
         error_log('Unauthorized access to test data');
         print('[false]');
