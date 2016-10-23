@@ -39,6 +39,11 @@ sudo chown $user /srv/jars
 sudo chgrp $user /srv/jars
 sudo chmod 0700 /srv/jars
 
+sudo touch /srv/whoami
+sudo chown $user /srv/whoami
+sudo chmod 0600 /srv/whoami
+echo $user | sudo tee /srv/whoami > /dev/null
+
 sudo mkdir -p $dir
 sudo rm -f /srv/res
 sudo rm -f /srv/rest

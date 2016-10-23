@@ -91,10 +91,10 @@ def runTest(uid, placements, tournament=False):
     fp.write("")
     fp.close()
 
-    call(["chmod", "0777", base + "/injar.jar"])
-    call(["chmod", "0666", base + "/in.txt"])
-    call(["chmod", "0666", base + "/out.txt"])
-    call(["chmod", "0666", base + "/debug.txt"])
+    call(["chmod", "1700", base + "/injar.jar"])
+    call(["chmod", "1600", base + "/in.txt"])
+    call(["chmod", "1600", base + "/out.txt"])
+    call(["chmod", "1600", base + "/debug.txt"])
     
     fp = open(path, "w")
     fp.write("running")

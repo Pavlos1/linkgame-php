@@ -36,7 +36,7 @@ def testUsers():
     users = getTenNewestUsers()
     # Not quite as dumb as it looks
     times = [[]] * len(users)
-    totaldebug = ""
+    totaldebug = [""] * len(users)
     for trial in range(10):
         for tupIndex in range(len(users)):
             (uid, placementID) = users[tupIndex]
@@ -59,14 +59,14 @@ def testUsers():
                 else:
                     print "[debug] Answer correct", uid, placementID
                 times[tupIndex].append(timeTaken)
-                totaldebug += debug
+                totaldebug[tupIndex] += debug
                 totaldebug += ("\n" + ("-"*20) + "\n")
     ret = []
     for i in range(len(users)):
         if times[i] == []:
             ret.append((users[i][0], users[i][1] + 1, None, "No data."))
         else:
-            ret.append((users[i][0], users[i][1] + 1, int(sum(times[i])/len(times[i])), totaldebug))
+            ret.append((users[i][0], users[i][1] + 1, int(sum(times[i])/len(times[i])), totaldebug[i]))
 
     return ret; 
 
