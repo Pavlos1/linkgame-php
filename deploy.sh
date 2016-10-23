@@ -85,6 +85,9 @@ if [ -f /srv/daemons/db.py ]; then
     sudo chmod 0600 /srv/daemons/db.py
 fi
 
+sudo iptables -A OUTPUT -p all -m owner --uid-owner mallory -j DROP
+sudo iptables -A OUTPUT -p all -m owner --uid-owner malloryt -j DROP
+
 if [ $os == "arch" ]; then
     sudo systemctl restart httpd
 else
