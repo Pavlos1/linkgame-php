@@ -31,7 +31,7 @@ while True:
         call(["chown", whoami, "/srv/" + user])
         # Run it! I'm being generous with the time
         # here to allow for VM spinup etc
-        func = lambda: call(["timeout", "--foreground", "5", "sudo", "-u", user, "/srv/daemons/runfunc.groovy", arg1])
+        func = lambda: call(["sudo", "-u", user, "timeout", "--foreground", "5", "/srv/daemons/runfunc.groovy", arg1])
         timetaken = 1000 * timeit(stmt=func, number=1)
         call(["pkill", "-9", "-u", user])
         # Allow the db user (http or www-data) to access contents
