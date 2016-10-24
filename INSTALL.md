@@ -96,7 +96,9 @@ sudo a2enmod ldap
 sudo apt-get install php5-mysqlnd
 ```
 Edit: `/etc/php5/apache2/php.ini`
+<br/>
 Add: `extension=mysqli.so`
+<br/>
 Modify: `memory_limit`, `upload_max_filesize`, `post_max_size`
 to something reasonable. Generally, the latter two should be less
 than the former. 
@@ -127,6 +129,7 @@ I'm using Let's Encrypt.
 
 ### Site Externally Accessible
 See: https://certbot.eff.org/#debianjessie-apache
+<br/>
 See: https://backports.debian.org/Instructions/#index2h2
 ### Site Firewaled
 See: http://serverfault.com/questions/750902/how-to-use-lets-encrypt-dns-challenge-validation
