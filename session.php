@@ -1,7 +1,6 @@
 <?php
 session_name('linkgame_session_id');
-    // TODO: change this once TLS is up & running
-    $secure = false;
+    $secure = true;
     $httponly = true;
     ini_set('session-use_only_cookies', 1);
     ini_set("session.entropy_file", "/dev/urandom");
