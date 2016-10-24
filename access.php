@@ -3,8 +3,6 @@
 
     // User has submitted login form
     if (isset($_POST['uid']) && isset($_POST['password']) && isset($_POST['what']) && ($_POST['what'] === 'login')) {
-        // TODO: Figure out how LDAP works
-
         if ((!isset($_POST['csrf'])) || (!($_POST['csrf'] === $_SESSION['csrf']))) {
             showLogin('CSRF verification failed.');
         }
@@ -17,11 +15,14 @@
             showLogin('UID cannot have special characters');
         } 
         
-        $ds = ldap_connect("ldaps://csitldap.anu.edu.au/", 389);
+        $ds = ldap_connect("ldaps://ldap.anu.edu.au/", 636);
         if (! $ds) {
             showLogin('LDAP server seems to be down. Please try again later.');
         }
-        $rb = ldap_bind($ds, $_POST['uid'], $_POST['password']);
+
+        // See: https://github.com/phunculist/anu-ldap/blob/master/lib/anu-ldap.rb
+        $user = 'uid=' . $_POST['uid'] . ', ou=people, o=anu.edu.au';
+        $rb = ldap_bind($ds, $user, $_POST['password']);
         if (! $rb) {
             showLogin('Credentials incorrect.');
         }
