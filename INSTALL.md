@@ -1,8 +1,9 @@
 # Installation
 This is mostly just a dump of my process as I was transferring the code to the server.
 Hence, it is oriented around Ubuntu/Debian, though there's no in theory it'll work
-on most Unixes - I developed this workig from Arch!
-<br/>
+on most Unixes - I developed this working from Arch!
+
+<br/><br/>
 ## Users
 
 These guys should have no permanent storage space
@@ -21,13 +22,15 @@ mallory hard nproc 100
 malloryt hard nproc 100
 ```
 (Or to taste)
-<br/>
+
+<br/><br/>
 ## Stuff that's probably installed anyway
 + python2
 + python2-{subprocess, timeit}
 + timeout
 + time
 + git
+
 <br/>
 ## Lamp
 ### Ubuntu
@@ -82,7 +85,7 @@ java -version
 <br/>
 ## Groovy
 sudo apt-get install groovy
-<br/>
+<br/><br/>
 ## PHP settings
 ```bash
 sudo apt-get install php5-ldap
@@ -94,7 +97,7 @@ Add: `extension=mysqli.so`
 Modify: `memory_limit`, `upload_max_filesize`, `post_max_size`
 to something reasonable. Generally, the latter two should be less
 than the former. 
-<br/>
+<br/><br/>
 ## Python
 ```bash
 sudo apt-get install python-pip python3
@@ -115,7 +118,7 @@ Edit: `db.php` and add credentials
 cp db.example.py db.py
 ```
 Edit: `db.py` with the same credentials
-<br/>
+<br/><br/>
 ## HTTPS
 I'm using Let's Encrypt.
 ```
