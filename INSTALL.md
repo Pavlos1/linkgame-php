@@ -3,7 +3,7 @@ This is mostly just a dump of my process as I was transferring the code to the s
 Hence, it is oriented around Ubuntu/Debian, though there's no in theory it'll work
 on most Unixes - I developed this working from Arch!
 
-<br/><br/>
+<br/>
 ## Users
 
 These guys should have no permanent storage space
@@ -23,7 +23,7 @@ malloryt hard nproc 100
 ```
 (Or to taste)
 
-<br/><br/>
+<br/>
 ## Stuff that's probably installed anyway
 + python2
 + python2-{subprocess, timeit}
