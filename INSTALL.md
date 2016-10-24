@@ -70,6 +70,7 @@ Add:
 ```sources.list
 deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
 deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+```
 
 Run:
 ```bash
@@ -84,8 +85,10 @@ java -version
 ```
 <br/>
 ## Groovy
+```bash
 sudo apt-get install groovy
-<br/><br/>
+```
+<br/>
 ## PHP settings
 ```bash
 sudo apt-get install php5-ldap
@@ -121,17 +124,16 @@ Edit: `db.py` with the same credentials
 <br/><br/>
 ## HTTPS
 I'm using Let's Encrypt.
-```
-if externally accessible {
-	See: https://certbot.eff.org/#debianjessie-apache
-	See: https://backports.debian.org/Instructions/#index2h2
-} otherwise {
-	See: http://serverfault.com/questions/750902/how-to-use-lets-encrypt-dns-challenge-validation
-}
 
-See: [https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html]
-```
-<br/>
+### Site Externally Accessible
+See: https://certbot.eff.org/#debianjessie-apache
+See: https://backports.debian.org/Instructions/#index2h2
+### Site Firewaled
+See: http://serverfault.com/questions/750902/how-to-use-lets-encrypt-dns-challenge-validation
+### Secure Ciphers
+See: https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html
+
+<br/><br/>
 ## Spinup
 ```bash
 ./deploy.sh
