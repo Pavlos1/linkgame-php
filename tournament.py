@@ -42,27 +42,41 @@ def testUsers():
             (uid, placementID) = users[tupIndex]
             placementID += 1
             if placementID >= len(raw):
-                # We've tested all the solutons for this user
-                 continue
+                # Right, but, like, are you sure?
+                cnx = db.dbConnect("linkgame")
+                cur = cnx.cursor()
+                cur.execute("SELECT placementID FROM tournament WHERE uid=%s", [uid])
+                placements_ = cur.fetchall()
+                cnx.close()
+                placements = []
+                for (placement,) in placements_:
+                    placements.append(placement)
+                for i in range(len(raw)):
+                    if not (i in placements):
+                        placementID = i
+                if placementID >= len(raw):
+                    # We've tested all the solutons for this user
+                    continue
+
+            if placementID == len(raw) - 1:
+                # Ahahahahaha have fun
+                (answer, debug, timeTaken) = runTest(uid, raw[placementID][:3], True)
             else:
-                if placementID == len(raw) - 1:
-                    # Ahahahahaha have fun
-                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:3], True)
-                else:
-                    # 3 tiles * 3 chars/tile = 9 chars (~ 1s)
-                    (answer, debug, timeTaken) = runTest(uid, raw[placementID][:9], True)
-                # An incorrect answer incurs a 10s penalty.
-                # This is included in the mean calculation
-                if len(answer) != 1 or answer[0] != raw[placementID]:
-                    timeTaken += 10000
-                    print "[debug] Answer incorrect or not given", uid, placementID, timeTaken
-                else:
-                    print "[debug] Answer correct", uid, placementID, timeTaken
-                # I have to do it this was because Python's lists are pass-by-reference
-                # Seriously, both 'times[tupIndex].append(...)' and 'times[tupIndex] += [...]' fail!!
-                times[tupIndex] = times[tupIndex] + [timeTaken]
-                totaldebug[tupIndex] += debug
-                totaldebug += ("\n" + ("-"*20) + "\n")
+                # 3 tiles * 3 chars/tile = 9 chars (~ 1s)
+                (answer, debug, timeTaken) = runTest(uid, raw[placementID][:9], True)
+            # An incorrect answer incurs a 10s penalty.
+            # This is included in the mean calculation
+            if len(answer) != 1 or answer[0] != raw[placementID]:
+                timeTaken += 10000
+                print "[debug] Answer incorrect or not given", uid, placementID, timeTaken
+            else:
+                print "[debug] Answer correct", uid, placementID, timeTaken
+            # I have to do it this was because Python's lists are pass-by-reference
+            # Seriously, both 'times[tupIndex].append(...)' and 'times[tupIndex] += [...]' fail!!
+            times[tupIndex] = times[tupIndex] + [timeTaken]
+            totaldebug[tupIndex] += debug
+            totaldebug += ("\n" + ("-"*20) + "\n")
+
     ret = []
     for i in range(len(users)):
         if times[i] == []:
