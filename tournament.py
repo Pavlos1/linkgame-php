@@ -54,7 +54,7 @@ def testUsers():
                 for i in range(len(raw)):
                     if not (i in placements):
                         placementID = i
-                        users[tupIndex][1] = i - 1
+                        users[tupIndex] = (uid, i - 1)
                 if placementID >= len(raw):
                     # We've tested all the solutons for this user
                     continue
